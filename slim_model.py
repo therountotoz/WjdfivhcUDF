@@ -3,7 +3,6 @@ import json
 import time
 
 import jax
-import numpy as np
 import optax
 
 from mesh_transformer import util
@@ -63,7 +62,6 @@ if __name__ == "__main__":
     print(f"using checkpoint {ckpt_step}")
 
     with jax.experimental.maps.mesh(devices, ('dp', 'mp')):
-        network = CausalTransformer(params)
 
         start = time.time()
         network.state = read_ckpt(network.state, f"gs://{bucket}/{model_dir}/step_{ckpt_step}/", devices.shape[1])
